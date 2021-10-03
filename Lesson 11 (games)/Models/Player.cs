@@ -1,6 +1,5 @@
 ﻿using Lesson_11__games_.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace Lesson_11__games_.Models
 {
@@ -11,6 +10,11 @@ namespace Lesson_11__games_.Models
         public Game Game { get; set; }  //это свойство (поле это без Гет Сет)
 
         //public List<Game> Games { get; set; } //**
+
+        public Player(string nickName)
+        {
+            NickName = nickName;
+        }
 
         public Player(string fio, int age, Gender gender, string nickName) : base(fio, age, gender)
         {

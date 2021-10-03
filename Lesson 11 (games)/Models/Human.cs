@@ -10,6 +10,9 @@ namespace Lesson_11__games_.Models
         public Gender Gender { get; set; }
         public double Money { get; set; }
 
+        public Human()
+        { }
+
         public Human(string fio, int age, Gender gender)
         {
             Fio = fio;
