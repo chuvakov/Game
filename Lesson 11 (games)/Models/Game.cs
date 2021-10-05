@@ -6,23 +6,18 @@ namespace Lesson_11__games_.Models
     public class Game
     {
         public string Name { get; set; }
-        public List<Acount> Acounts { get; set; }        
-
-        //public List<Game> Games { get; set; } //**
+        public List<Account> Acounts { get; set; }
 
         public Game()
-        {
-            //Games = new List<Game>();//**
-        }
+        { }
 
         public Game(string name)
         {
-            Name = name;
-            //Games = new List<Game>();  //**
-            Acounts = new List<Acount>(); //создаем пустой список и кладем ссылку на него в переменную                      
+            Name = name;            
+            Acounts = new List<Account>(); //создаем пустой список и кладем ссылку на него в переменную                      
         }
 
-        public Game(string name, List<Acount> acounts) : this(name)
+        public Game(string name, List<Account> acounts) : this(name)
         {
             if (acounts != null)
             {
@@ -30,7 +25,7 @@ namespace Lesson_11__games_.Models
             }
             else
             {
-                Acounts = new List<Acount>();
+                Acounts = new List<Account>();
             }
         }
 
@@ -46,16 +41,16 @@ namespace Lesson_11__games_.Models
         }
 
 
-        public Acount CreateAccount(string login, string password)
+        public Account CreateAccount(string login, string password)
         {
             if (IsExistAccount(login, password))
             {
-                Console.WriteLine("Такой аккаунт уже есть");
+                Menu.PrintEror("Такой аккаунт уже есть");
                 return null;
             }
             else
             {
-                Acount account = new Acount(Guid.NewGuid().ToString());
+                Account account = new Account(Guid.NewGuid().ToString());
                 account.Login = login;
                 account.Password = password;
 
@@ -67,7 +62,7 @@ namespace Lesson_11__games_.Models
 
         private bool IsExistAccount(string login, string password)
         {
-            foreach (Acount acount in Acounts)
+            foreach (Account acount in Acounts)
             {
                 if (login == acount.Login && password == acount.Password)
                 {
@@ -78,9 +73,14 @@ namespace Lesson_11__games_.Models
             return false;
         }
 
-        public void DeleteAccount(Acount acount)
+        public void DeleteAccount(Account acount)
         {
             Acounts.Remove(acount);
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

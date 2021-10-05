@@ -9,21 +9,21 @@ namespace Lesson_11__games_
     class Program
     {
         static void Main(string[] args)
-        {             
+        {
             List<Game> games = new List<Game>();
-            List<Player> players = new List<Player>();
-            
+            List<Player> players = new List<Player>();                        
+
             while (true)
             {
                 Console.Clear();
-                Menu.PrintBaseMenu();     
-            
-                BaseCommand? command = Menu.GetBaseCommand();                 
-                
-                if (command.HasValue)   // это команда есть только у типов данных с ?знаком на конце
+                Menu.Print();
+
+                BaseCommand? command = Menu.GetCommand();                
+
+                if (command.HasValue)   // это команда есть только у типов данных с ?знаком на конце (еще не проходили)
                 {
                     switch (command)
-                    {                        
+                    {
                         case BaseCommand.CreatePlayer:
                             {
                                 Menu.PrintTitle("Выбрана команда - Создать игрока");
@@ -40,14 +40,59 @@ namespace Lesson_11__games_
                             }
 
                         case BaseCommand.DeletePlayer:
-                            Console.Clear();
-                            Console.WriteLine("Выбрана команда - Удалить игрока");
-                            break;
+                            {
+                                Menu.PrintTitle("Выбрана команда - Удалить игрока");
+
+                                Player.PrintPlayers(players);
+
+                                Console.WriteLine($"\nКакого игрока удалить?");
+
+                                if (int.TryParse(Console.ReadLine(), out int numberPlayer))
+                                {
+                                    if (numberPlayer < 1 || numberPlayer > players.Count)
+                                    {
+                                        Menu.PrintEror("Такого игрока нет в списке");
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
+
+                                    players.RemoveAt(numberPlayer - 1); // -1 т.к. нумерация с 0 в списке
+
+                                    Menu.PrintSuccess("Удаление игрока прошло успешно");
+                                    Thread.Sleep(2000);
+                                }
+                                else
+                                {
+                                    Menu.PrintEror("Вы ввели некоректную информацию");
+                                    Thread.Sleep(2000);
+                                }
+                                break;
+                            }
 
                         case BaseCommand.SelectPlayer:
-                            Console.Clear();
-                            Console.WriteLine("Выбрана команда - Выбрать игрока");
-                            break;
+                            {                                
+                                Menu.PrintTitle("Выбрана команда - Выбрать игрока");                                
+                                Player.PrintPlayers(players);                                
+
+                                if (int.TryParse(Console.ReadLine(), out int numberPlayer))
+                                {
+                                    if (numberPlayer < 1 || numberPlayer > players.Count)
+                                    {
+                                        Menu.PrintEror("Такого игрока нет в списке");
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
+
+                                    Player curentPlayer = players[numberPlayer - 1];  // вытащили самого игрока из списка по индексу
+                                    PlayerMenu.Init(curentPlayer);
+                                }
+                                else
+                                {
+                                    Menu.PrintEror("Вы ввели некоректную информацию");
+                                    Thread.Sleep(2000);
+                                }
+                                break;
+                            }
 
                         case BaseCommand.CreateGame:
                             {
@@ -102,9 +147,9 @@ namespace Lesson_11__games_
                                 break;
                             }
 
-                        case BaseCommand.Exit:                            
-                            return;                            
-                    }               
+                        case BaseCommand.Exit:
+                            return;
+                    }
                 }
             }
         }

@@ -1,5 +1,4 @@
 ﻿using Lesson_11__games_.Enums;
-using Lesson_11__games_.Models;
 
 namespace Lesson_11__games_.Models
 {

@@ -1,15 +1,14 @@
 ﻿using Lesson_11__games_.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Lesson_11__games_.Models
 {
     public class Player : Human
     {
-        public Acount Acount { get; set; }
+        public Account Account { get; set; }
         public string NickName { get; set; }
         public Game Game { get; set; }  //это свойство (поле это без Гет Сет)
-
-        //public List<Game> Games { get; set; } //**
 
         public Player(string nickName)
         {
@@ -19,30 +18,23 @@ namespace Lesson_11__games_.Models
         public Player(string fio, int age, Gender gender, string nickName) : base(fio, age, gender)
         {
             NickName = nickName;
-            //Games = new List<Game>();
         }
 
         public Player(string fio, int age, Gender gender, string nickName, double money) : base(fio, age, gender, money)
         {
             NickName = nickName;
-            //Games = new List<Game>();
         }
 
-        //public void CreateGame() //**
-        //{
-        //    string gameName = Console.ReadLine();
-        //    Game game = new Game(gameName);
-        //    //game.Games.Add(game);
-        //    //Games.Add(game);
-        //}
+        public static void PrintPlayers(List<Player> players)
+        {
+            int i = 1;            
 
-        //public void ShowGameList() //**
-        //{
-        //    foreach (Game games in Games)
-        //    {
-        //        Console.WriteLine(games.Name);
-        //    }
-        //}
+            foreach (Player player in players)
+            {
+                Console.WriteLine($"{i}. {player.NickName}");                
+                i++;                
+            }            
+        }
 
         /// <summary>
         /// Создаем аккаунт в игре (метод игрока)
@@ -51,12 +43,12 @@ namespace Lesson_11__games_.Models
         {
             if (Game != null)
             {
-                Acount acount = Game.CreateAccount(login, password);
+                Account acount = Game.CreateAccount(login, password);
 
                 if (acount != null)
                 {
-                    Acount = acount;
-                    Console.WriteLine($"Аккаунт {acount} создан у игрока {NickName}");
+                    Account = acount;
+                    Menu.PrintSuccess($"Аккаунт {acount} создан у игрока {NickName} - успешно");
                     return true;
                 }
 
@@ -64,26 +56,26 @@ namespace Lesson_11__games_.Models
             }
             else
             {
-                Console.WriteLine("Игра не установлена");
+                Menu.PrintEror("Игра не установлена");
                 return false;
             }
         }
 
         public void DeleteAccount()
         {
-            Game.DeleteAccount(Acount);
-            Acount = null;
+            Game.DeleteAccount(Account);
+            Account = null;
             Console.WriteLine($"Аккаунт играка {NickName} из игры {Game.Name} удален");
         }
 
         public void SendMoney(double sumMoney)
         {
-            if (sumMoney <= this.Money && this.Acount != null)
+            if (sumMoney <= this.Money && this.Account != null)
             {
-                this.Acount.AddMoney(sumMoney);
+                this.Account.AddMoney(sumMoney);
                 this.Money -= sumMoney;
             }
-            else if (this.Acount == null)
+            else if (this.Account == null)
             {
                 Console.WriteLine("Акаунта не существует");
             }
@@ -95,27 +87,35 @@ namespace Lesson_11__games_.Models
 
         public void BackMoney(double sumMoney)
         {
-            this.Money += this.Acount.RemoveMoney(sumMoney);
+            this.Money += this.Account.RemoveMoney(sumMoney);
         }
 
         public void Play()
         {
-            if (this.Acount.AuthorizationFlag == true)
+            if (this.Account.AuthorizationFlag == true)
             {
                 Console.WriteLine($"игрок с ником вошел в систему и начал играть в игру (!!!!!название)");
             }
             else
             {
-                while (this.Acount.AuthorizationFlag == false)
+                while (this.Account.AuthorizationFlag == false)
                 {
                     Console.WriteLine("Введите логин:");
                     string login = Console.ReadLine();
                     Console.WriteLine("Введите пароль:");
                     string password = Console.ReadLine();
-                    this.Acount.AuthorizationFlag = this.Acount.AuthorizationCheck(login, password);
+                    this.Account.AuthorizationFlag = this.Account.AuthorizationCheck(login, password);
                     Console.WriteLine($"игрок с ником вошел в систему и начал играть в игру (!!!!!название)");
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return 
+                $"Аккаунт: {Account}\n" +
+                $"Никнейм: {NickName}\n" +
+                $"Игра: {Game}\n";
         }
     }
 }

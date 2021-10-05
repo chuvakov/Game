@@ -1,9 +1,5 @@
 ﻿using Lesson_11__games_.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lesson_11__games_.Models
 {
@@ -38,7 +34,7 @@ namespace Lesson_11__games_.Models
             Console.ResetColor();
         }
 
-        public static void PrintBaseMenu()
+        public static void Print()
         {
             string menu =
                 "1. Создать игрока\n" +
@@ -50,27 +46,16 @@ namespace Lesson_11__games_.Models
                 "7. Выйти из программы\n";
 
             Console.WriteLine(menu);
-        }
+        }           
 
-        public static void PrintPlayerMenu()
-        {
-            string menu =
-                "1. Добавить игру\n" +
-                "2. Создать аккаунт\n" +
-                "3. Напечатать информацию о игроке\n" +
-                "4. Выйти из игрока\n";               
-
-            Console.WriteLine(menu);
-        }
-
-        public static BaseCommand? GetBaseCommand()  //после примитивного типа данных ?знак позволяет ему хранить значение NULL
+        public static BaseCommand? GetCommand()  //после примитивного типа данных ?знак позволяет ему хранить значение NULL
                                                      //(изначально ENUM не соддержит NULL, изначально NULL содержат только ссылочные типы данных как Классы)
         {
             BaseCommand? result;
 
-            Console.WriteLine("Введите пунк меню");   
+            Console.Write("Введите пункт меню и нажмите клавишу 'ENTER': ");
             if (int.TryParse(Console.ReadLine(), out int inputCommand))  //мы тут же объявили переменную (так можно делать только с входными параметрами, которые помечены ключевым словом out)
-            {  
+            {
                 if (Enum.IsDefined(typeof(BaseCommand), inputCommand)) //typeof, тоже самое что и Gettype, т.е. получаем тип сущности (того что передали)
                 { // IsDefind возвращает true если переданное значение содержиться в переданом ENUM
                     result = (BaseCommand)inputCommand;  //явное приведение типов (приказывать нужно когда уверен что тип соответствует)
@@ -89,5 +74,7 @@ namespace Lesson_11__games_.Models
 
             return result;
         }
+
+        
     }
 }

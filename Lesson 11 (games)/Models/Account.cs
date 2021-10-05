@@ -3,7 +3,7 @@
 
 namespace Lesson_11__games_.Models
 {
-    public class Acount
+    public class Account
     {
         public string Id { get; set; }
         public double SumMoney { get; set; }
@@ -12,12 +12,12 @@ namespace Lesson_11__games_.Models
 
         public bool AuthorizationFlag = false;
 
-        public Acount(string id)
+        public Account(string id)
         {
             Id = id;
         }
 
-        public Acount(string id, double sumMoney) : this(id)
+        public Account(string id, double sumMoney) : this(id)
         {
             SumMoney = sumMoney;
         }
@@ -40,7 +40,6 @@ namespace Lesson_11__games_.Models
                 SumMoney = 0;
                 return money;
             }
-
         }
         public bool AuthorizationCheck(string login, string password)
         {
