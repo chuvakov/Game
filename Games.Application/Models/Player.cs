@@ -1,8 +1,8 @@
-﻿using Lesson_11__games_.Enums;
+﻿using Games.Application.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Lesson_11__games_.Models
+namespace Games.Application.Models
 {
     public class Player : Human
     {

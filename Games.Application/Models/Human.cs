@@ -1,6 +1,6 @@
-﻿using Lesson_11__games_.Enums;
+﻿using Games.Application.Enums;
 
-namespace Lesson_11__games_.Models
+namespace Games.Application.Models
 {
     public abstract class Human
     {

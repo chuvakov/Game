@@ -1,24 +1,25 @@
-﻿using Lesson_11__games_.Enums;
-using Lesson_11__games_.Models;
+﻿using Games.Application.Enums;
+using Games.Application.Models;
+using Games.ConsoleApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Lesson_11__games_
+namespace ConsoleApp
 {
     class Program
     {
         static void Main(string[] args)
         {
             List<Game> games = new List<Game>();
-            List<Player> players = new List<Player>();                        
+            List<Player> players = new List<Player>();
 
             while (true)
             {
                 Console.Clear();
                 Menu.Print();
 
-                BaseCommand? command = Menu.GetCommand();                
+                BaseCommand? command = Menu.GetCommand();
 
                 if (command.HasValue)   // это команда есть только у типов данных с ?знаком на конце (еще не проходили)
                 {
@@ -70,9 +71,9 @@ namespace Lesson_11__games_
                             }
 
                         case BaseCommand.SelectPlayer:
-                            {                                
-                                Menu.PrintTitle("Выбрана команда - Выбрать игрока");                                
-                                Player.PrintPlayers(players);                                
+                            {
+                                Menu.PrintTitle("Выбрана команда - Выбрать игрока");
+                                Player.PrintPlayers(players);
 
                                 if (int.TryParse(Console.ReadLine(), out int numberPlayer))
                                 {

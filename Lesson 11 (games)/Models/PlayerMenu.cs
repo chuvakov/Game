@@ -1,12 +1,9 @@
-﻿using Lesson_11__games_.Enums;
+﻿using Games.Application.Enums;
+using Games.Application.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace Lesson_11__games_.Models
+namespace Games.ConsoleApp.Models
 {
     public static class PlayerMenu
     {
@@ -84,7 +81,7 @@ namespace Lesson_11__games_.Models
                             string password = Console.ReadLine();
 
                             player.CreateAccount(login, password);
-                            Thread.Sleep(2000); 
+                            Thread.Sleep(2000);
                             break;
 
                         case PlayerComand.PrintInfo:

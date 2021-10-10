@@ -6,4 +6,8 @@
     <RootNamespace>Lesson_11__games_</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Games.Application\Games.Application.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Lesson_11__games_.Enums
+﻿namespace Games.Application.Enums
 {
     public enum Gender
     {
