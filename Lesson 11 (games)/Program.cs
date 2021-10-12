@@ -149,6 +149,8 @@ namespace ConsoleApp
                             }
 
                         case BaseCommand.Exit:
+                            DataStorage dataStorage = new DataStorage(@"C:\Users\4ymai\Desktop\Lesson 11 (games)\DataStorage");
+                            dataStorage.Save(games, players);
                             return;
                     }
                 }
