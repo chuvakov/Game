@@ -18,6 +18,11 @@ namespace Games.Application.Models
         public DataStorage(string pathToStorage)
         {
             this.pathToStorage = pathToStorage;
+
+            if (!Directory.Exists(pathToStorage))
+            {
+                Directory.CreateDirectory(pathToStorage);
+            }            
         }
 
         public void Save(List<Game> games, List<Player> players)
@@ -42,6 +47,26 @@ namespace Games.Application.Models
             }
         }
 
-        
+        public void Load(out List<Game> games, out List<Player> players)
+        {
+            Load(out games);
+            Load(out players);
+        }
+
+        public void Load(out List<Game> games)
+        {
+            using (StreamReader sr = new StreamReader(Path.Combine(pathToStorage, fileNameGames)))
+            {
+                games = JsonConvert.DeserializeObject<List<Game>>(sr.ReadToEnd());  //ReadToEnd - прочитать весь файл
+            }
+        }
+
+        public void Load(out List<Player> players)
+        {
+            using (StreamReader sr = new StreamReader(Path.Combine(pathToStorage, fileNamePlayers)))
+            {
+                players = JsonConvert.DeserializeObject<List<Player>>(sr.ReadToEnd());
+            }
+        }        
     }
 }

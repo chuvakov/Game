@@ -10,6 +10,9 @@ namespace Games.Application.Models
         public string NickName { get; set; }
         public Game Game { get; set; }  //это свойство (поле это без Гет Сет)
 
+        public Player()
+        { }
+
         public Player(string nickName)
         {
             NickName = nickName;

@@ -3,6 +3,8 @@ using Games.Application.Models;
 using Games.ConsoleApp.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace ConsoleApp
@@ -11,8 +13,10 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            List<Game> games = new List<Game>();
-            List<Player> players = new List<Player>();
+            string pathToDataStorage = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            DataStorage dataStorage = new DataStorage(pathToDataStorage); 
+            dataStorage.Load(out List<Game> games, out List<Player> players);
 
             while (true)
             {
@@ -148,8 +152,7 @@ namespace ConsoleApp
                                 break;
                             }
 
-                        case BaseCommand.Exit:
-                            DataStorage dataStorage = new DataStorage(@"C:\Users\4ymai\Desktop\Lesson 11 (games)\DataStorage");
+                        case BaseCommand.Exit:                            
                             dataStorage.Save(games, players);
                             return;
                     }
